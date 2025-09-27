@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Interactive Quiz Application</title>
+   <link rel="stylesheet" href="style.css">
+  </head>
+<body>
+  <div class="container">
+    <header aria-label="App header">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <div class="title" style="line-height:1.15">QuickQuiz</div>
+          <div class="subtitle">Test your knowledge with interactive quizzes!</div>
+        </div>
+      </div>
+      <div class="pill" aria-live="polite"><span>Score</span><strong id="scoreHeader">0</strong></div>
+    </header>
+
+     <!-- Intro Screen  -->
+    <section id="screen-intro" class="screen active card" aria-labelledby="intro-title">
+      <div class="card-body stack">
+        <h1 id="intro-title" class="title">Ready to test your knowledge?</h1>
+        <p class="subtitle">Choose your settings and start a timed multiple-choice quiz. Get instant correctness, and a summary at the end.</p>
+
+        <div class="row">
+          <div class="stack grow">
+            <label for="num-questions">Number of questions</label>
+            <select id="num-questions" class="control">
+              <option value="5">5</option>
+              <option value="10" selected>10</option>
+              <option value="15">15</option>
+            </select>
+          </div>
+          <div class="stack grow">
+            <label for="per-timer">Time per question (seconds)</label>
+            <select id="per-timer" class="control">
+              <option value="10">10</option>
+              <option value="15" selected>15</option>
+              <option value="20">20</option>
+              <option value="30">30</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="stack grow">
+            <label for="difficulty">Difficulty (API only)</label>
+            <select id="difficulty" class="control">
+              <option value="">Any</option>
+              <option value="easy">Easy</option>
+              <option value="medium">Medium</option>
+              <option value="hard">Hard</option>
+            </select>
+          </div>
+          <div class="stack grow">
+            <label for="use-api">Question source</label>
+            <select id="use-api" class="control" aria-describedby="api-note">
+              <option value="local" selected>Built-in sample</option>
+              <option value="api">Open Trivia DB (live)</option>
+            </select>
+            <div id="api-note" class="subtitle" style="font-size:12px">Live mode pulls mixed multiple-choice questions from opentdb.com</div>
+          </div>
+        </div>
+
+        <div class="row" style="justify-content:space-between; align-items:center;">
+          <span class="pill">Press number keys 1–4 to answer quickly</span>
+          <button id="startBtn" class="btn">Start Quiz</button>
+        </div>
+      </div>
+    </section>
+
+     <!-- Quiz Screen  -->
+    <section id="screen-quiz" class="screen card" aria-labelledby="quiz-title">
+      <div class="card-body stack" role="group" aria-describedby="quiz-meta">
+        <div class="meta" id="quiz-meta">
+          <div class="grow">
+            <div class="progress-wrap" aria-hidden="true"><div id="progress" class="progress"></div></div>
+            <div class="subtitle" aria-live="polite"><span id="qIndex">1</span>/<span id="qTotal">10</span></div>
+          </div>
+          <div class="timer" id="timer" aria-live="polite">15s</div>
+        </div>
+
+        <h2 id="quiz-title" class="title" style="min-height:3.6em" aria-live="polite"></h2>
+        <div class="options" role="listbox" aria-label="Answer choices">
+           buttons injected here 
+        </div>
+
+        <div class="row" style="justify-content:space-between; align-items:center; margin-top:4px;">
+          <div id="feedback" class="subtitle" role="status" aria-live="polite"></div>
+          <div class="row">
+            <button id="skipBtn" class="btn btn-ghost">Skip</button>
+            <button id="nextBtn" class="btn" disabled>Next</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+     <!-- Results Screen  -->
+    <section id="screen-results" class="screen card" aria-labelledby="results-title">
+      <div class="card-body stack">
+        <h2 id="results-title" class="title">Quiz complete!</h2>
+        <p class="subtitle" id="results-summary">You scored X/Y.</p>
+        <div class="row">
+          <button id="restartBtn" class="btn">Restart</button>
+          <button id="reviewBtn" class="btn btn-ghost">Review Questions</button>
+        </div>
+        <div id="review" class="stack" style="margin-top:8px; display:none;"></div>
+      </div>
+    </section>
+
+     <!-- Loading Screen  -->
+    <section id="screen-loading" class="screen card" aria-live="polite" aria-busy="true">
+      <div class="card-body" style="display:flex; align-items:center; gap:12px;">
+        <div class="loader" aria-hidden="true"></div>
+        <div>
+          <div class="title" style="font-size:18px">Fetching questions…</div>
+          <div class="subtitle">This usually takes only a moment</div>
+        </div>
+      </div>
+    </section>
+  </div>
+<!-- Confetti container  -->
+  <div class="confetti" aria-hidden="true" id="confetti"></div>
+  <script src="app.js"></script>
+</body>
+</html>
+
